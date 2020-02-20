@@ -173,6 +173,17 @@
 
                     */
                         }
-
-
                         
+            const manipulandoDOM = {
+                /*                                            //           (Usado para achar um valor dentro de input)
+                                            //                 /\
+                                            //                 | 
+            var inputElement = document.querySelector("input[name=nome]"); // refencia toda a DOM e procura por "<input ... name=nome>"
+            var btnElement = document.querySelector('button.botao');
+
+            btnElement.onclick = function(){
+                //var text = inputElement.value;
+                alert(inputElement.value);
+            }*/
+            }    
+
