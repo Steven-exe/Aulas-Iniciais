@@ -2,7 +2,7 @@
 
     <style>
         .quadrado{
-            background-color: brown;
+            background-color: lightcoral;
             width: 100px;
             height: 100px;
             margin: 5px;
@@ -13,85 +13,37 @@
             display:flex;
         }
 
+        .criarQuad{
+            padding: 5px;
+            height: 100px;
+            width: 100px;
+            margin: 15px;
+            border-radius: 10px;
+        }
+
     </style>
+
     <head>
         <meta charset="UTF-8">
         <title>Curso JavaScript</title>
     </head>
+
     <body>
         <div align="center">
-        <a href="./PDFs/exe1.pdf">Exercicios Aulas iniciais de JavaScript</a>
-        <a href="./PDFs/exe2.pdf">Manipulando DOMS</a>
+            <a href="./PDFs/exe1.pdf">Exercicios Aulas iniciais de JavaScript</a>
+            <a href="./PDFs/exe2.pdf">Manipulando DOMS</a>
         </div>
-
-        <div id="caixa">
-            <button class="criarQuad">Criar Quadrado</button>
-            <div class="quadrado"></div>
-        </div>
-            
-        </div>
-
-        <div id="app">
-           <!--<input id="nome" />-->
-            
-        </div>
-
-        <script>
-             function getRandomColor() {
-                  var letters = "0123456789ABCDEF";
-                  var color = "#";
-
-                    for (var i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                    }
-                return color;
-                }
-
-            var linkElement = document.createElement("a");
-            linkElement.setAttribute('href', "https://www.youtube.com/watch?v=K6xaSrNuB5k&feature=youtu.be", '_blank')
-            linkElement.setAttribute('title', "meu comeco de site")
-            
-            var textElement = document.createTextNode('Acessar site da live no YT');
-            linkElement.appendChild(textElement);
-
-            var containerElement = document.querySelector('#app');
-            containerElement.appendChild(linkElement);
-
-            var inputElement = document.querySelector("#nome")
-            containerElement.Child
-
-            btnCriar = document.querySelector('button.criarQuad')
-
-            
-
-            var cQ = document.querySelector('#quadrado');
-
-            btnCriar.onclick = function(){
-
-                iden++;
-
-                var divElement = document.createElement("div");
-
-                divElement.setAttribute('class', "quadrado");
-                divElement.setAttribute('name', iden);
-
-                var conElement = document.querySelector('#caixa');
-
-                conElement.appendChild(divElement);
-                console.log(iden);
+        <button class="criarQuad">Criar Quadrado</button>
+            <div id="caixa" style="background-color: lawngreen; height: 130px;">
                 
-                
-                
-                //setInterval(cQ, 0500);
-            }
+            </div>
 
-            btnCriar.onmouseover= function(){
-                    colo = getRandomColor()
-                btnCriar.setAttribute('background-color', colo);
-            }
 
-            
+        <div id="lista">
+            <ul>
+            </ul>
+        </div>
 
-        </script>
+        <script src=/scripts.js></script>
     </body>
 </html>

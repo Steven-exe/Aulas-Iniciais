@@ -1,189 +1,118 @@
 
+var linkElement = document.createElement("a");
+    linkElement.setAttribute('href', "https://www.youtube.com/watch?v=K6xaSrNuB5k&feature=youtu.be", '_blank')
+    linkElement.setAttribute('title', "meu comeco de site")
+
+    var textElement = document.createTextNode('Acessar site da live no YT');
+        linkElement.appendChild(textElement);
+
+        btnCriar = document.querySelector('button.criarQuad')
+
+        function getRandomColor(pos) {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+        
+              for (var i = 0; i < 6; i++) {
+                  color += letters[Math.floor(Math.random() * 16)];
+              }
+          return color;
+          }
+
+//-------------------Fazer quadrados----------------------------
+    var cxVerd = document.querySelector('#caixa')
+    var btnElement = document.querySelector('.criarQuad')
+
+    var listQuad = [];
+
+     function colocarAT(pos){
+         var pegador = document.querySelector('#'+pos+'')
+         pegador.setAttribute('style', 'background-color:'+getRandomColor()+'')
+     }
+        
+    btnElement.onclick = function (){
+        var iden = "A"+Math.floor(Math.random() * 192837)
+        console.log(iden) 
+        var mod = document.createElement('div')
+        var cor = getRandomColor();
+        mod.setAttribute('class', 'quadrado')
+        mod.setAttribute('id', ''+iden+'')
+        mod.setAttribute('style', 'background-color:'+cor+'')
+        mod.setAttribute('onmouseover', 'colocarAT("'+iden+'")')
+        cxVerd.appendChild(mod);
+
+        listQuad.push(iden)
+        }
+
+
+
+//------------------ Lista -------------------------
+
+    var nomes = JSON.parse(localStorage.getItem('list_toDos')) || [];
+
+    var pLista = document.querySelector("#lista");
+    var blocoLista = document.querySelector("#lista ul");
+    var barraText = document.createElement('input');
+        barraText.setAttribute('type', "text");
+            barraText.setAttribute('name', "nome");
+
+
+    var btLista = document.createElement("button") 
+            btLista.setAttribute("onClick", "adicionar()")
+                barraText.setAttribute("id", "barr")
+
+    var texbt = document.createTextNode("Adicionar")
+        btLista.appendChild(texbt);
+            pLista.appendChild(barraText);
+                pLista.appendChild(btLista);
+
+        function adicionar(){
+  var pegText = document.querySelector('#lista input').value;
+  //var segText = pegText.value;
+  nomes.push(pegText);
+  document.getElementById('barr').value = "";
+
+  listNomes();
+
+  console.log("foi em Adicionar()");
+
+  svOnStorage();
+        }
+
+        function listNomes(){
+
+        blocoLista.innerHTML = '';
+        console.log("Apagou lista antiga");
             
-            const aula1 = {
-            //javascript ** Sempre no final para carregar todos os outros elemtentos para o JS ler...
-             
-             /*----------------------------------------------------------
-             console.log("Hello World")
-             var nome="Estevan";
-             var idade = 20;
-             var peso = 80.6
-             var humano = true;
+        for (nome of nomes){
+            var bloco = document.createElement("li");
+            var textList = document.createTextNode(nome);
+            var btnExcluir = document.createElement("a");
+            var btnExTxt = document.createTextNode("Excluir");
+            btnExcluir.appendChild(btnExTxt);
 
-             var alunos = ["Estevan", "Leroy", "Wanderson"]
+            btnExcluir.setAttribute("href", "#");
 
-             var aluno ={
-                 nome: "Estevan",
-                 idade: 20,
-             }
+            var pos = nomes.indexOf(nome);
+            btnExcluir.setAttribute('onclick', 'deleteNome('+pos+')')
 
-             console.log(alunos)
-             ----------------------------------------------------------*/
-            
-                /*-------------------------------------------------------
-                function retornasexoIF(sexo){
-                    if (sexo === "M"){
-                        return "Masculino"
-                    } else if (sexo==="F"){
-                        return "Feminino"
-                    } else {
-                        return  "Outro"
-                    }
-                }
-                retornasexoIF("M")
+            blocoLista.appendChild(bloco);
+            blocoLista.append(btnExcluir);
+            bloco.appendChild(textList);
 
-                function retornarSexoSwitch(sexo){
-                    switch (sexo) {
-                        case 'M':
-                            return "Masculino";
-                        
-                        case "F":
-                            return "Feminino";
-                    default:
-                        return "Outro";
-                    }
-                }
+                console.log("printou listNomes")
+            }
+        }
 
-                console.log(retornarSexoSwitch("F"));
+        function deleteNome(pos){
+            nomes.splice(pos, 1);
+            listNomes();
+            svOnStorage();
+        }
 
-                var sexo = "M";
+        function svOnStorage(){
+            localStorage.setItem('list_toDos', JSON.stringify(nomes));
+        }
 
-                let teste = (sexo === 'M') ? 'Masculino' : "Feminino"
+        listNomes();
 
-                console.log(teste) 
-                ------------------------------------------------------------*/
-
-                /*----------------------------------------------------------
-                for (var i; i<100;i++){
-                    console.log(i);
-                }
-
-                 var a = 3541534654983218
-                
-                while (a>=10 ){
-                    console.log(a);
-                    a = a*1/2;
-                }
-
-                 -----------------   setIntervel setTimeout-------------
-
-                 let num = 0
-
-                    function exibiralgo(){
-                    
-                        num++
-
-                        console.log("hello world - "+num)
-                    }
-                    setInterval(exibiralgo, 3000);
-
-                        Loga uma frase em console.log
-
-                        var endereco = {  
-                       rua: "Rua dos pinheiros",
-                       numero: 1293,
-                       bairro: "Centro",
-                       cidade: "São Paulo",
-                       uf: "SP"
-                        };
-
-                        const retorno = "O usuário mora em " + endereco.cidade +" / " + endereco.uf + ", no bairro " +endereco.bairro+ ", na rua "+ "\""+ endereco.rua+"\" com nº "+endereco.numero+"."
-                        console.log(retorno);
-
-                        Determina os numeros pares entre um intervalo de numeros com "x % 2" se 0 = par, se 1 = impar
-
-                        function pares(x, y) {
-                        if (x<y){
-                            for ( x; x<y ;x++){
-                                if (x % 2 == 0){
-                                    console.log(x);
-                                }
-                            }
-                        } else if (x>y){
-                            for ( y; x>y ;y++){
-                                if (y % 2 == 0){
-                                    console.log(y);
-                                }
-                            }
-                        }
-                          
-                    }
-                          
-                    pares(321, 31);
-
-                    --------------Verifica o texte de um array com "indexOf"---------
-
-                     function temHabilidade(array, text){
-                    if (array.indexOf(text) === -1){
-                        return false
-                    } else {
-                        return true
-                    }
-                
-                }
-                
-                var skills = ["JavaScript", "ReactJS", "React Native"];
-
-                console.log(temHabilidade(skills, "ReactJS"));
-
-                -------------------------simples funcção de uso do Switch Case
-
-                function experiencia(anos) {
-                      switch(anos){
-                          case 0,1: return "Iniciante";
-                          case 2,3: return "Intermediário";
-                          case 4,5,6: return "Avançado";
-                          default:return "Jedi Master";
-
-                      }
-                    
-                    }
-                    
-                    var anosEstudo = 3;
-                    console.log(experiencia(anosEstudo));
-
-                    // De 0-1 ano: Iniciante
-                    // De 1-3 anos: Intermediário
-                    // De 3-6 anos: Avançado
-                    // De 7 acima: Jedi Master
-
-                -------------------Função que verifica toda a Array Usuarios e lista seus objetes com metodo .join()
-
-                    var usuarios = [
-                          { 
-                            nome: "Diego",
-                            habilidades: ["Javascript", "ReactJS", "Redux"]
-                            },
-
-                          {
-                            nome: "Gabriel",
-                            habilidades: ["VueJS", "Ruby on Rails", "Elixir"]
-                          }
-                          ];
-
-                          function listaHab(array){
-                              for(var i = 0; i <= array.length;i++){
-                                  if (array[i] != undefined){
-                                      console.log("O "+array[i].nome+" possui as habilidades: "+array[i].habilidades.join(', ')+".")
-                                  }
-                              }
-                          }
-
-                          listaHab(usuarios);
-
-                    */
-                        }
-                        
-            const manipulandoDOM = {
-                /*                                            //           (Usado para achar um valor dentro de input)
-                                            //                 /\
-                                            //                 | 
-            var inputElement = document.querySelector("input[name=nome]"); // refencia toda a DOM e procura por "<input ... name=nome>"
-            var btnElement = document.querySelector('button.botao');
-
-            btnElement.onclick = function(){
-                //var text = inputElement.value;
-                alert(inputElement.value);
-            }*/
-            }    
 
