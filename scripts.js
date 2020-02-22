@@ -1,4 +1,100 @@
 
+
+/*
+var minhaPromise = function () {
+    return new Promise(function(resolve, reject){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://api.github.com/users/Steven-exe');
+        xhr.send(null);
+
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4){
+                if (xhr.status === 200){
+                    resolve(JSON.parse(xhr.responseText));
+                } else{
+                    reject('Erro na aquisiçao');
+                }
+            }
+        }
+
+    })
+}
+
+
+    function verificaIdade(idade){
+        return new Promise(function(resolve, reject){
+            setTimeout(()=>{
+                if (idade>= 18){
+                    resolve()
+                } else {
+                    reject();
+                }
+            },2000)
+        })
+    }
+
+    verificaIdade(20)
+        .then(function() {
+            console.log("Maior que 18")
+        })
+        .catch(function() {
+            console.log("Menor que 18")
+        })
+
+        axios.get('https://api.github.com/users/Steven-exe')
+    .then(function(response){
+        console.log(response.data.login);
+    })
+    .catch(function(error) {
+        console.warn(error);
+    });
+*/
+
+
+
+function pegaGit(){
+    var bDados = document.querySelector('#gitApi ul').innerHTML= ''
+    bDados.innerHtml= '';
+    var usuario = document.querySelector('#gitApi input').value
+    axios.get('https://api.github.com/users/'+usuario+'')
+        .then(function(response){
+                var repo = {login:'', ava:'',html:'', repos:''}
+                repo.login = response.data.login;
+                repo.ava = response.data.avatar_url;
+                repo.html = response.data.html_url;
+                repo.repos = response.data.repos_url;
+                var foto = document.createElement('img')
+                foto.setAttribute('src', repo.ava);
+                foto.setAttribute('alt', repo.login+' user photo')
+                var bDados = document.querySelector('#gitApi ul')
+                bDados.appendChild(foto)
+                
+                for (var inf in repo){
+                        if(repo[inf] !== repo.ava){
+                            var cDado = document.createElement('li')
+                            var dado = document.createTextNode(repo[inf])
+                            cDado.appendChild(dado)
+                            bDados.appendChild(cDado);
+                    }
+                }
+                    console.log(repo)
+                
+                //bDados.appendChild(dados)
+                //console.log(verUsu, verAva, verHtml, verRep);
+            })
+        .catch(function() {
+                console.warn("Usuario não encontrado!");
+                alert("Usuario não encontrado")
+            });
+        
+    document.querySelector('#gitApi input').value=''
+
+
+
+}
+
+
+
 var linkElement = document.createElement("a");
     linkElement.setAttribute('href', "https://www.youtube.com/watch?v=K6xaSrNuB5k&feature=youtu.be", '_blank')
     linkElement.setAttribute('title', "meu comeco de site")

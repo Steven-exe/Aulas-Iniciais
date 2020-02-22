@@ -13,6 +13,10 @@
             display:flex;
         }
 
+        #gitApi{
+            margin-top: 100px;
+        }
+
         .criarQuad{
             padding: 5px;
             height: 100px;
@@ -44,6 +48,18 @@
             </ul>
         </div>
 
-        <script src=/scripts.js></script>
+        <div id='gitApi'>
+            <input type="text" name="user">
+            <button onclick="pegaGit()">Adicionar</button>
+            <ul>
+            
+            </ul>
+        </div>
+
+
+        
     </body>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src=/scripts.js></script>
 </html>
