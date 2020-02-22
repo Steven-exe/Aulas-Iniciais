@@ -50,51 +50,6 @@ var minhaPromise = function () {
     });
 */
 
-
-
-function pegaGit(){
-    var bDados = document.querySelector('#gitApi ul').innerHTML= ''
-    bDados.innerHtml= '';
-    var usuario = document.querySelector('#gitApi input').value
-    axios.get('https://api.github.com/users/'+usuario+'')
-        .then(function(response){
-                var repo = {login:'', ava:'',html:'', repos:''}
-                repo.login = response.data.login;
-                repo.ava = response.data.avatar_url;
-                repo.html = response.data.html_url;
-                repo.repos = response.data.repos_url;
-                var foto = document.createElement('img')
-                foto.setAttribute('src', repo.ava);
-                foto.setAttribute('alt', repo.login+' user photo')
-                var bDados = document.querySelector('#gitApi ul')
-                bDados.appendChild(foto)
-                
-                for (var inf in repo){
-                        if(repo[inf] !== repo.ava){
-                            var cDado = document.createElement('li')
-                            var dado = document.createTextNode(repo[inf])
-                            cDado.appendChild(dado)
-                            bDados.appendChild(cDado);
-                    }
-                }
-                    console.log(repo)
-                
-                //bDados.appendChild(dados)
-                //console.log(verUsu, verAva, verHtml, verRep);
-            })
-        .catch(function() {
-                console.warn("Usuario não encontrado!");
-                alert("Usuario não encontrado")
-            });
-        
-    document.querySelector('#gitApi input').value=''
-
-
-
-}
-
-
-
 var linkElement = document.createElement("a");
     linkElement.setAttribute('href', "https://www.youtube.com/watch?v=K6xaSrNuB5k&feature=youtu.be", '_blank')
     linkElement.setAttribute('title', "meu comeco de site")
@@ -113,6 +68,70 @@ var linkElement = document.createElement("a");
               }
           return color;
           }
+
+
+
+function pegGit(){
+ 
+    //document.querySelector('#gitApi ul').innerHTML= '';
+    var carre = document.createElement('li')
+    var gado = document.createTextNode("Carregando...")
+    carre.appendChild(gado)
+    document.querySelector('#gitApi ul').appendChild(carre)
+    var usuario = document.querySelector('#gitApi input').value
+    axios.get('https://api.github.com/users/'+usuario+'')
+        .then(function(response){
+                document.querySelector('#gitApi ul').innerHTML= ''
+                var repo = {login:'', ava:'',html:'', repos:''}
+                repo.login = response.data.login;
+                repo.ava = response.data.avatar_url;
+                repo.html = response.data.html_url;
+                repo.repos = "https://github.com/"+response.data.login+"?tab=repositories"
+                var foto = document.createElement('img')
+                foto.setAttribute('src', repo.ava);
+                foto.setAttribute('alt', repo.login+' user photo')
+                var bDados = document.querySelector('#gitApi ul')
+                bDados.appendChild(foto)
+                
+                for (var inf in repo){
+                        if(repo[inf] !== repo.ava){
+                            if(repo[inf] !== repo.login){
+                                    var cDado = document.createElement('li')
+                                    var clink = document.createElement('a')
+                                    clink.setAttribute('href', repo[inf])
+                                    var dado = document.createTextNode(repo[inf])
+                                    clink.appendChild(dado)
+                                    cDado.appendChild(clink)
+                                    bDados.appendChild(cDado);
+                                } else {
+                                    var cDado = document.createElement('li')
+                                    var dado = document.createTextNode(repo[inf])
+                                        cDado.appendChild(dado)
+                                        bDados.appendChild(cDado);
+                                }  
+
+                            }
+                }
+                    console.log(repo)
+                
+                //bDados.appendChild(dados)
+                //console.log(verUsu, verAva, verHtml, verRep);
+            })
+        .catch(function() {
+                console.warn("Usuario não encontrado!");
+                alert("Usuario não encontrado")
+            });
+        
+    document.querySelector('#gitApi input').value=''
+
+
+
+}
+
+function Clear(){
+    document.querySelector('#gitApi ul').innerHTML= '';
+    console.log("clear");
+}
 
 //-------------------Fazer quadrados----------------------------
     var cxVerd = document.querySelector('#caixa')
